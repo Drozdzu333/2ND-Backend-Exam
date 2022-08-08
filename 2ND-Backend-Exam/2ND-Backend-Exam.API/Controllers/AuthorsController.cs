@@ -1,43 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace _2ND_Backend_Exam.API.Controllers
+﻿namespace _2ND_Backend_Exam.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        // GET: api/<AuthorsController>
+        private readonly IAuthorService _authorService;
+
+        public AuthorsController(IAuthorService authorService)
+        {
+            _authorService = authorService;
+        }
+
+
+        /// <summary>
+        /// Get Authors data list
+        /// </summary>
+        /// <returns>List of Authors</returns>
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<AuthorDTO>>> Get()
+            => Ok(await _authorService.GetAllAsync());
 
-        // GET api/<AuthorsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        /// <summary>
+        /// Get one Author data
+        /// </summary>
+        /// <param name="id">Identification number of Author</param>
+        /// <returns>Data about Author</returns>
+        [HttpGet]
+        [Route("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<AuthorDTO>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<AuthorDTO>> Get(int id)
+            => Ok(await _authorService.GetByIdAsync(id));
 
-        // POST api/<AuthorsController>
+        /// <summary>
+        /// Add new Author
+        /// </summary>
+        /// <param name="value">JSON-new author data</param>
+        /// <returns>Id of new Author with 201.Created; 400.BadRequest; 409.Conflict</returns>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AuthorDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult> Post(AuthorPostDTO value)
         {
+            var id = await _authorService.CreateNewAsync(value);
+            return Created($"{HttpContext.Request.Path}/{id}", $"new Actor with id= [{id}] added");
         }
 
-        // PUT api/<AuthorsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        /// <summary>
+        /// Change direct data
+        /// </summary>
+        /// <param name="id">Identification number of Author to change data</param>
+        /// <param name="value">Value to change. Write only row(key/value) of what do you what to change</param>
+        /// <returns>New Author data: 200.Ok; 400.BadRequest; 409.Conflict</returns>
+        [HttpPut]
+        [Route("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
+        [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Put(int id, AuthorPutDTO value)
+            => Ok(await _authorService.UpdatePut(id, value));
 
-        // DELETE api/<AuthorsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        /// <summary>
+        /// Remove Author
+        /// </summary>
+        /// <param name="id">Identification number of Author to remove</param>
+        /// <returns>Id of removed Author: 200.Ok; 404.NotFound</returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Delete(int id)
+            => Ok(await _authorService.Remove(id));
     }
 }

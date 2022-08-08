@@ -7,10 +7,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<LoggingMiddleware>();
 // Data Base
 var connectionString = builder.Configuration.GetConnectionString("EduDataBase");
 builder.Services.AddDbContext<EduContext>(options => options.UseSqlServer(connectionString));
 
+// Scooped
+builder.Services.AddScoped<IAuthorService, AuthorServicecs>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -20,6 +27,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<LoggingMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseCors();

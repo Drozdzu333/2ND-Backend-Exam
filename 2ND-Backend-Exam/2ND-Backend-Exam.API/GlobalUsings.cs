@@ -1,2 +1,16 @@
 ﻿global using _2ND_Backend_Exam.DATA.Context;
+global using _2ND_Backend_Exam.API.Services.Interfaces;
 global using Microsoft.EntityFrameworkCore;
+global using AutoMapper;
+global using _2ND_Backend_Exam.API.DTOs.AuthorDTOs;
+global using Swashbuckle.AspNetCore.Annotations;
+global using _2ND_Backend_Exam.DATA.DAL.Interfaces;
+global using _2ND_Backend_Exam.DATA.Entities;
+global using _2ND_Backend_Exam.API.Exceptions;
+global using Microsoft.AspNetCore.Mvc;
+global using _2ND_Backend_Exam.API.DTOs.EduMaterialsDTOs;
+global using _2ND_Backend_Exam.API.DTOs.MaterialTypeDTOs;
+global using _2ND_Backend_Exam.DATA.DAL.Repositories;
+global using _2ND_Backend_Exam.API.Services;
+global using _2ND_Backend_Exam.API.Middleware;
+global using _2ND_Backend_Exam.API.DTOs.ReviewProfiles;

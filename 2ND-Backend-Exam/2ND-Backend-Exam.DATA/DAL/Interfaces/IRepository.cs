@@ -1,8 +1,8 @@
 ﻿namespace _2ND_Backend_Exam.DATA.DAL.Interfaces
 {
-    internal interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
-        void Create(T entity);
+        Task CreateAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
         Task<IEnumerable<T>> GetAllAsync();
