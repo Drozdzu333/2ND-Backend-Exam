@@ -8,6 +8,8 @@
                 .ReverseMap();
             CreateMap<AuthorPutDTO, Author>()
                  .ReverseMap();
+            CreateMap<AuthorPostDTO, Author>()
+                 .ReverseMap();
         }
     }
 }

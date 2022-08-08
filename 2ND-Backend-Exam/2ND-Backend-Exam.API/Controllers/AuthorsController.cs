@@ -41,7 +41,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult> Post(AuthorPutDTO value)
+        public async Task<ActionResult> Post(AuthorPostDTO value)
         {
             var id = await _authorService.CreateNewAsync(value);
             return Created($"{HttpContext.Request.Path}/{id}", $"new Actor with id= [{id}] added");

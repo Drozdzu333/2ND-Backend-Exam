@@ -10,7 +10,7 @@
             _mapper = mapper;
         }
 
-        public async Task<AuthorDTO> CreateNewAsync(AuthorPutDTO value)
+        public async Task<AuthorDTO> CreateNewAsync(AuthorPostDTO value)
         {
             var author = _mapper.Map<Author>(value);
             await _repository.CreateAsync(author);

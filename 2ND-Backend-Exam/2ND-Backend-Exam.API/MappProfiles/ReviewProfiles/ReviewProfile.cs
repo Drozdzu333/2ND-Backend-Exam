@@ -9,6 +9,9 @@
 
             CreateMap<ReviewPutDTO, Review>()
                 .ReverseMap();
+
+            CreateMap<ReviewPostDTO, Review>()
+                .ReverseMap();
         }
     }
 }

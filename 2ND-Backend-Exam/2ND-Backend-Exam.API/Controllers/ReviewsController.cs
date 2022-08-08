@@ -41,7 +41,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(ReviewDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult> Post(ReviewPutDTO value)
+        public async Task<ActionResult> Post(ReviewPostDTO value)
         {
             var id = await _reviewService.CreateNewAsync(value);
             return Created($"{HttpContext.Request.Path}/{id}", $"new Review with id= [{id}] added");

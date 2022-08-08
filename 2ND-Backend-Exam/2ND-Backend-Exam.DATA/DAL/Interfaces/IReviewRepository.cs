@@ -3,5 +3,6 @@
     public interface IReviewRepository : IRepository<Review>
     {
         Task<Review> GetByIdAsync(int id);
+        Task<bool> MaterialExistByIdAsync(int id);
     }
 }

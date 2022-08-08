@@ -8,5 +8,8 @@
             => await _entity.Include(review=>review.EduMaterial).SingleOrDefaultAsync(x => x.Id == id);
         public new async Task<IEnumerable<Review>> GetAllAsync()
             => await _entity.Include(review => review.EduMaterial).ToListAsync();
+
+        public async Task<bool> MaterialExistByIdAsync(int id)
+            => await _context.EduMaterials.AnyAsync(x => x.Id == id);
     }
 }
