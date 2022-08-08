@@ -10,12 +10,12 @@
             _mapper = mapper;
         }
 
-        public async Task<int> CreateNewAsync(AuthorPutDTO value)
+        public async Task<AuthorDTO> CreateNewAsync(AuthorPutDTO value)
         {
             var author = _mapper.Map<Author>(value);
             await _repository.CreateAsync(author);
             await _repository.SaveChangesAsync();
-            return author.Id;
+            return _mapper.Map<AuthorDTO>(author);
         }
 
         public async Task<IEnumerable<AuthorDTO>> GetAllAsync()
