@@ -7,9 +7,7 @@
         private readonly IAuthorService _authorService;
 
         public AuthorsController(IAuthorService authorService)
-        {
-            _authorService = authorService;
-        }
+            => _authorService = authorService;
 
 
         /// <summary>
@@ -43,7 +41,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        public async Task<ActionResult> Post(AuthorPostDTO value)
+        public async Task<ActionResult> Post(AuthorPutDTO value)
         {
             var id = await _authorService.CreateNewAsync(value);
             return Created($"{HttpContext.Request.Path}/{id}", $"new Actor with id= [{id}] added");
@@ -55,13 +53,25 @@
         /// <param name="id">Identification number of Author to change data</param>
         /// <param name="value">Value to change. Write only row(key/value) of what do you what to change</param>
         /// <returns>New Author data: 200.Ok; 400.BadRequest; 409.Conflict</returns>
-        [HttpPut]
+        [HttpPatch]
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Put(int id, AuthorPutDTO value)
-            => Ok(await _authorService.UpdatePut(id, value));
+        public async Task<ActionResult> Patch(int id, AuthorPatchDTO value)
+            => Ok(await _authorService.UpdatePatch(id, value));
+        /// <summary>
+        /// Change direct data
+        /// </summary>
+        /// <param name="id">Identification number of Author to change data</param>
+        /// <param name="value">Value to change. Write only row(key/value) of what do you what to change</param>
+        /// <returns>New Author data: 200.Ok; 400.BadRequest; 409.Conflict</returns>
+        [HttpPut]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
+        [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Put(AuthorPutDTO value)
+            => Ok(await _authorService.UpdatePut(value));
 
         /// <summary>
         /// Remove Author

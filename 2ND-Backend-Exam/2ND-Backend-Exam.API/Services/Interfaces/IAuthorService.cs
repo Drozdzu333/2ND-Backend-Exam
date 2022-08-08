@@ -4,8 +4,9 @@
     {
         Task<IEnumerable<AuthorDTO>> GetAllAsync();
         Task<AuthorDTO> GetByIdAsync(int id);
-        Task<int> CreateNewAsync(AuthorPostDTO value);
-        Task<AuthorDTO> UpdatePut(int id, AuthorPutDTO value);
+        Task<int> CreateNewAsync(AuthorPutDTO value);
+        Task<AuthorDTO> UpdatePatch(int id, AuthorPatchDTO value);
         Task<bool> Remove(int id);
+        Task<AuthorDTO> UpdatePut(AuthorPutDTO value);
     }
 }

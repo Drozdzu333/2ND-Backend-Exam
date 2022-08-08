@@ -4,7 +4,10 @@
     {
         public AuthorProfile()
         {
-            CreateMap<Author, AuthorDTO>();
+            CreateMap<Author, AuthorDTO>()
+                .ReverseMap();
+            CreateMap<AuthorPutDTO, Author>()
+                 .ReverseMap();
         }
     }
 }

@@ -10,7 +10,7 @@
             _mapper = mapper;
         }
 
-        public async Task<int> CreateNewAsync(AuthorPostDTO value)
+        public async Task<int> CreateNewAsync(AuthorPutDTO value)
         {
             var author = _mapper.Map<Author>(value);
             await _repository.CreateAsync(author);
@@ -45,21 +45,39 @@
             return true;
         }
 
-        public async Task<AuthorDTO> UpdatePut(int id, AuthorPutDTO value)
+        public async Task<AuthorDTO> UpdatePatch(int id, AuthorPatchDTO value)
         {
             if (value == null)
-                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePut{id}");
+                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePatch{id}");
             if(value.Name == null && value.Description == null && value.MaterialsIds == null)
-                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePut{id}");
+                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePatch{id}");
             var author = await _repository.GetByIdAsync(id);
             if (author == null)
-                throw new ResourceNotFoundException($"AuthorServicecs.UpdatePut({id})");
-            await UpdateAuthorAsync(value, author);
+                throw new ResourceNotFoundException($"AuthorServicecs.UpdatePatch({id})");
+            await PatchAuthorAsync(value, author);
             _repository.Update(author);
             await _repository.SaveChangesAsync();
             return _mapper.Map<AuthorDTO>(author);
         }
-        private async Task UpdateAuthorAsync(AuthorPutDTO source, Author result)
+
+        public async Task<AuthorDTO> UpdatePut(AuthorPutDTO value)
+        {
+            var author = await _repository.GetByIdAsync(value.Id);
+            if (author == null)
+                throw new ResourceNotFoundException($"AuthorServicecs.UpdatePut({value.Id})");
+            author.Name = value.Name;
+            author.Description = value.Description;
+            await PutAuthorAsync(value, author);
+            return _mapper.Map<AuthorDTO>(author);
+        }
+
+        private async Task PutAuthorAsync(AuthorPutDTO source, Author result)
+        {
+            result.Name = source.Name;
+            result.Description = source.Description;
+            await UpdateMaterials(result, source.MaterialsIds);
+        }
+        private async Task PatchAuthorAsync(AuthorPatchDTO source, Author result)
         {
             if(source.Name != null)
                 result.Name = source.Name;
