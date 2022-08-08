@@ -1,9 +1,7 @@
 ﻿namespace _2ND_Backend_Exam.DATA.Entities
 {
-    public class Review
+    public class Review : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         public string NameOfAuthor { get; set; }
         public string Description { get; set; }
         public int Rate { get; set; }

@@ -24,13 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="MappProfiles\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\2ND-Backend-Exam.DATA\2ND-Backend-Exam.DATA.csproj" />
   </ItemGroup>
 

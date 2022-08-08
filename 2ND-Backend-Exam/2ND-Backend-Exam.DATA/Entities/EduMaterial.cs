@@ -1,9 +1,7 @@
 ﻿namespace _2ND_Backend_Exam.DATA.Entities
 {
-    public class EduMaterial
+    public class EduMaterial : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
