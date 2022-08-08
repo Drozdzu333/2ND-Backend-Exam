@@ -7,6 +7,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Data Base
+var connectionString = builder.Configuration.GetConnectionString("EduDataBase");
+builder.Services.AddDbContext<EduContext>(options => options.UseSqlServer(connectionString));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,6 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthorization();
 

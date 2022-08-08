@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2ND-Backend-Exam.API", "2ND-Backend-Exam.API\2ND-Backend-Exam.API.csproj", "{B840AACB-DB2C-4621-A372-1AFA7A900BEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2ND-Backend-Exam.DATA", "2ND-Backend-Exam.DATA\2ND-Backend-Exam.DATA.csproj", "{DA24F189-E2D9-4CB2-AEFB-A7F698E52DC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B840AACB-DB2C-4621-A372-1AFA7A900BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B840AACB-DB2C-4621-A372-1AFA7A900BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B840AACB-DB2C-4621-A372-1AFA7A900BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA24F189-E2D9-4CB2-AEFB-A7F698E52DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA24F189-E2D9-4CB2-AEFB-A7F698E52DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA24F189-E2D9-4CB2-AEFB-A7F698E52DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA24F189-E2D9-4CB2-AEFB-A7F698E52DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
