@@ -7,5 +7,6 @@
         Task<MaterialTypeDTO> CreateNewAsync(MaterialTypePostDTO value);
         Task<MaterialTypeDTO> UpdatePut(MaterialTypePutDTO value);
         Task<bool> Remove(int id);
+        Task<IEnumerable<EduMaterialDTO>> GetAllByTypeAsync(int id);
     }
 }

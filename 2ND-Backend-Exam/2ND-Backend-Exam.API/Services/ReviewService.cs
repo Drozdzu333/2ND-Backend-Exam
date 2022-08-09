@@ -68,6 +68,8 @@
             review.NameOfAuthor = value.NameOfAuthor;
             review.Description = value.Description;
             review.Rate = (int)value.Rate;
+            _repository.Update(review);
+            await _repository.SaveChangesAsync();
             return _mapper.Map<ReviewDTO>(review);
         }
     }

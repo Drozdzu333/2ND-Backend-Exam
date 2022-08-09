@@ -17,9 +17,20 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<MaterialTypeDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles ="Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<IEnumerable<MaterialTypeDTO>>> Get()
             => Ok(await _materialTypeService.GetAllAsync());
+        /// <summary>
+        /// Get Material Types data list
+        /// </summary>
+        /// <returns>List of Material Types</returns>
+        [HttpGet]
+        [Route("{id}/Materials")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<MaterialTypeDTO>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<EduMaterialDTO>>> GetMaterials(int id)
+            => Ok(await _materialTypeService.GetAllByTypeAsync(id));
 
         /// <summary>
         /// Get one Material Type data

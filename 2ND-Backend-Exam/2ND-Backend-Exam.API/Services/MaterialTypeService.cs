@@ -26,6 +26,14 @@
             return _mapper.Map<IEnumerable<MaterialTypeDTO>>(matTypeList);
         }
 
+        public async Task<IEnumerable<EduMaterialDTO>> GetAllByTypeAsync(int id)
+        {
+            var matType = await _repository.GetByIdAsync(id);
+            if (matType == null)
+                throw new ResourceNotFoundException($"MaterialTypeService.GetByIdAsync({id})");
+            return _mapper.Map<IEnumerable<EduMaterialDTO>>(matType.EduMaterials);
+        }
+
         public async Task<MaterialTypeDTO> GetByIdAsync(int id)
         {
             var matType = await _repository.GetByIdAsync(id);
