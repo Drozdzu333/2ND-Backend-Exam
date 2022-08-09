@@ -9,14 +9,9 @@
         [Required]
         public string Location { get; set; }
         public DateTime PublicationDate { get; set; }
-
         [Required]
         public int AuthorId { get; set; }
-
         [Required]
         public int MaterialTypeId { get; set; }
-
-        [Required]
-        public IEnumerable<Review> Reviews { get; set; }
     }
 }

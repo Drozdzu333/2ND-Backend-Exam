@@ -7,8 +7,7 @@
         public string Description { get; set; } = null!;
         public string Location { get; set; } = null!;
         public DateTime PublicationDate { get; set; }
-        public AuthorDTO Author { get; set; } = null!;
-        public MaterialTypeDTO MaterialType { get; set; } = null!;
-        public IEnumerable<ReviewDTO> Reviews { get; set; } = null!;
+        public string Author { get; set; } = null!;
+        public string MaterialType { get; set; } = null!;
     }
 }

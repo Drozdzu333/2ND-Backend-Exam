@@ -17,5 +17,12 @@
             .Include(edu => edu.MaterialType)
             .Include(edu => edu.Reviews)
             .ToListAsync();
+
+        public async Task<bool> ValidExistsSubIdsAsync(EduMaterial material)
+        {
+            var author = await _context.Authors.AnyAsync(author=>author.Id == material.AuthorId);
+            var matTyp = await _context.MaterialTypes.AnyAsync(type=>type.Id == material.MaterialTypeId);
+            return matTyp && author;
+        }
     }
 }

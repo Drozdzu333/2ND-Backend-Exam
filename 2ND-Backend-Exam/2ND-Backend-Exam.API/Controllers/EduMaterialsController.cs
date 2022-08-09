@@ -43,7 +43,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(EduMaterialDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         public async Task<ActionResult> Post(EduMaterialPostDTO value)
         {
             var id = await _materialService.CreateNewAsync(value);

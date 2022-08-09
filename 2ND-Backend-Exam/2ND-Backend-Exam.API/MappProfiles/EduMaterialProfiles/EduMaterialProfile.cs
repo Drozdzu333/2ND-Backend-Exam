@@ -5,6 +5,10 @@
         public EduMaterialProfile()
         {
             CreateMap<EduMaterial, EduMaterialDTO>()
+                .ForMember(dest => dest.Author,
+                opt => opt.MapFrom(src => src.Author.ToString()))
+                .ForMember(dest => dest.MaterialType,
+                opt => opt.MapFrom(src => src.MaterialType.ToString()))
                 .ReverseMap();
             CreateMap<EduMaterialPutDTO, EduMaterial>()
                 .ReverseMap();

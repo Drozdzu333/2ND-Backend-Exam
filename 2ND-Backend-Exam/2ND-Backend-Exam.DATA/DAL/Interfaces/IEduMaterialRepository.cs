@@ -3,5 +3,6 @@
     public interface IEduMaterialRepository : IRepository<EduMaterial>
     {
         public Task<EduMaterial> GetByIdAsync(int id);
+        Task<bool> ValidExistsSubIdsAsync(EduMaterial material);
     }
 }
