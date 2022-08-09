@@ -14,4 +14,4 @@ global using _2ND_Backend_Exam.DATA.DAL.Repositories;
 global using _2ND_Backend_Exam.API.Services;
 global using _2ND_Backend_Exam.API.Middleware;
 global using System.ComponentModel.DataAnnotations;
-global using _2ND_Backend_Exam.API.DTOs.ReviewProfiles;
+global using _2ND_Backend_Exam.API.DTOs.ReviewDTOs;

@@ -1,4 +1,4 @@
-﻿namespace _2ND_Backend_Exam.API.DTOs.ReviewProfiles
+﻿namespace _2ND_Backend_Exam.API.DTOs.ReviewDTOs
 {
     public class ReviewPutDTO
     {

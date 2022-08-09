@@ -5,6 +5,8 @@
         public AuthorMaterialProfile()
         {
             CreateMap<EduMaterial, AuthorMaterialDTO>()
+           .ForMember(dest => dest.PublicationDate,
+            opt => opt.MapFrom(src => DateOnly.FromDateTime(src.PublicationDate).ToString()))
                 .ReverseMap();
         }
     }
