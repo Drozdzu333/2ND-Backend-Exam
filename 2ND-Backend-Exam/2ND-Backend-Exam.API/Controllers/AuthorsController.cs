@@ -17,6 +17,7 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<AuthorDTO>>> Get()
             => Ok(await _authorService.GetAllAsync());
 

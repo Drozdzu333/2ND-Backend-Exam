@@ -6,3 +6,5 @@ global using _2ND_Backend_Exam.DATA.Context;
 global using Microsoft.EntityFrameworkCore;
 global using _2ND_Backend_Exam.DATA.Context.Seeder;
 global using System.ComponentModel.DataAnnotations.Schema;
+global using System.Security.Cryptography;
+global using System.Text;

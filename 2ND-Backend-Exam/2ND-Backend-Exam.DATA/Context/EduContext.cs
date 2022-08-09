@@ -8,6 +8,7 @@
         public DbSet<EduMaterial> EduMaterials { get; set; }
         public DbSet<MaterialType> MaterialTypes { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -15,6 +16,7 @@
                 .Property(a => a.PublicationDate)
                 .HasColumnType("date");
             builder.RunSeeder();
+
         }
 
     }
