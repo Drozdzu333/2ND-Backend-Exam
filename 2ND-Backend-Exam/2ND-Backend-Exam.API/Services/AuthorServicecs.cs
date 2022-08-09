@@ -48,9 +48,9 @@
         public async Task<AuthorDTO> UpdatePatch(int id, AuthorPatchDTO value)
         {
             if (value == null)
-                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePatch{id}");
+                throw new ModificationRejectedException($"AuthorServicecs.UpdatePatch{id}");
             if(value.Name == null && value.Description == null && value.MaterialsIds == null)
-                throw new EmptyPutRequestException($"AuthorServicecs.UpdatePatch{id}");
+                throw new ModificationRejectedException($"AuthorServicecs.UpdatePatch{id}");
             var author = await _repository.GetByIdAsync(id);
             if (author == null)
                 throw new ResourceNotFoundException($"AuthorServicecs.UpdatePatch({id})");

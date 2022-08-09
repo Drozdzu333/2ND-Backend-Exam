@@ -27,24 +27,24 @@
                 context.Response.StatusCode = 204;
                 await context.Response.WriteAsync(e.Message);
             }
-            catch(EmptyPutRequestException e)
+            catch(ModificationRejectedException e)
             {
                 _logger.LogError(e, e.Message);
                 context.Response.StatusCode = 304;
                 await context.Response.WriteAsync(e.Message);
             }
-            //catch (RecordAlreadyExist e)
-            //{
-            //    _logger.LogError(e, e.Message);
-            //    context.Response.StatusCode = 409;
-            //    await context.Response.WriteAsync(e.Message);
-            //}
-            //catch (Exception e)
-            //{
-            //    _logger.LogError(e, e.Message);
-            //    context.Response.StatusCode = 500;
-            //    await context.Response.WriteAsync("Something went wrong.");
-            //}
+            catch (RecordAlreadyExistException e)
+            {
+                _logger.LogError(e, e.Message);
+                context.Response.StatusCode = 409;
+                await context.Response.WriteAsync(e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                context.Response.StatusCode = 500;
+                await context.Response.WriteAsync("Something went wrong.");
+            }
         }
     }
 }
