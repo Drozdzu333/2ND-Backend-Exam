@@ -1,7 +1,4 @@
-﻿global using Microsoft.EntityFrameworkCore;
-using _2ND_Backend_Exam.DATA.Entities;
-
-namespace _2ND_Backend_Exam.DATA.Context
+﻿namespace _2ND_Backend_Exam.DATA.Context
 {
     public class EduContext : DbContext
     {
@@ -14,6 +11,7 @@ namespace _2ND_Backend_Exam.DATA.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.RunSeeder();
         }
 
     }

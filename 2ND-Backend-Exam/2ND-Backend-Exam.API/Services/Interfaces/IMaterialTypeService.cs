@@ -4,8 +4,8 @@
     {
         Task<IEnumerable<MaterialTypeDTO>> GetAllAsync();
         Task<MaterialTypeDTO> GetByIdAsync(int id);
-        Task<int> CreateNewAsync(MaterialTypePostDTO value);
+        Task<MaterialTypeDTO> CreateNewAsync(MaterialTypePostDTO value);
         Task<MaterialTypeDTO> UpdatePut(MaterialTypePutDTO value);
-        Task<MaterialTypeDTO> Remove(int id);
+        Task<bool> Remove(int id);
     }
 }

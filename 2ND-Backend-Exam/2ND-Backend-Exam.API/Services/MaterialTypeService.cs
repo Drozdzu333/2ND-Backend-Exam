@@ -2,28 +2,56 @@
 {
     public class MaterialTypeService : IMaterialTypeService
     {
-        public Task<int> CreateNewAsync(MaterialTypePostDTO value)
+        private readonly IMaterialTypeRepository _repository;
+        private readonly IMapper _mapper;
+
+        public MaterialTypeService(IMaterialTypeRepository materialTypeRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _repository = materialTypeRepository;
+            _mapper = mapper;
+        }
+        public async Task<MaterialTypeDTO> CreateNewAsync(MaterialTypePostDTO value)
+        {
+            var matType = _mapper.Map<MaterialType>(value);
+            await _repository.CreateAsync(matType);
+            await _repository.SaveChangesAsync();
+            return _mapper.Map<MaterialTypeDTO>(matType);
         }
 
-        public Task<IEnumerable<MaterialTypeDTO>> GetAllAsync()
+        public async Task<IEnumerable<MaterialTypeDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var matTypeList = await _repository.GetAllAsync();
+            if (matTypeList.Count() <= 0)
+                throw new EmptyResourceListException("MaterialTypeService.GetAllAsync()");
+            return _mapper.Map<IEnumerable<MaterialTypeDTO>>(matTypeList);
         }
 
-        public Task<MaterialTypeDTO> GetByIdAsync(int id)
+        public async Task<MaterialTypeDTO> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var matType = await _repository.GetByIdAsync(id);
+            if (matType == null)
+                throw new ResourceNotFoundException($"MaterialTypeService.GetByIdAsync({id})");
+            return _mapper.Map<MaterialTypeDTO>(matType);
         }
 
-        public Task<MaterialTypeDTO> Remove(int id)
+        public async Task<bool> Remove(int id)
         {
-            throw new NotImplementedException();
+            var materialType = await _repository.GetByIdAsync(id);
+            if (materialType == null)
+                throw new ResourceNotFoundException("");
+            _repository.Delete(materialType);
+            await _repository.SaveChangesAsync();
+            return true;
         }
-        public Task<MaterialTypeDTO> UpdatePut(MaterialTypePutDTO value)
+        public async Task<MaterialTypeDTO> UpdatePut(MaterialTypePutDTO value)
         {
-            throw new NotImplementedException();
+            var matType = await _repository.GetByIdAsync(value.Id);
+            if (matType == null)
+                throw new ResourceNotFoundException("");
+            matType.Type = value.Type;
+            _repository.Update(matType);
+            await _repository.SaveChangesAsync();
+            return _mapper.Map<MaterialTypeDTO>(matType);
         }
     }
 }
