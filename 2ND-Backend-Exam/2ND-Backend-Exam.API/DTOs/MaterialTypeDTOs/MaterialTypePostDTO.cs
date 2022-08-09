@@ -1,9 +1,10 @@
 ﻿namespace _2ND_Backend_Exam.API.DTOs.MaterialTypeDTOs
 {
-    public class MaterialTypeDTO
+    public class MaterialTypePostDTO
     {
-        public int Id { get; set; } = 0!;
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string Type { get; set; } = null!;
-
     }
 }

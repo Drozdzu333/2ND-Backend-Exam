@@ -11,7 +11,7 @@
         public int AuthorId { get; set; }
 
         public MaterialType MaterialType { get; set; }
-        public int MaterialId { get; set; }
+        public int MaterialTypeId { get; set; }
 
         public IEnumerable<Review> Reviews { get; set; }
     }

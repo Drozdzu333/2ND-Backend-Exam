@@ -1,43 +1,75 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace _2ND_Backend_Exam.API.Controllers
+﻿namespace _2ND_Backend_Exam.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialTypesController : ControllerBase
     {
-        // GET: api/<MaterialTypesController>
+        private readonly IMaterialTypeService _materialTypeService;
+
+        public MaterialTypesController(IMaterialTypeService materialTypeService)
+            => _materialTypeService = materialTypeService;
+
+
+        /// <summary>
+        /// Get Material Types data list
+        /// </summary>
+        /// <returns>List of Material Types</returns>
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<MaterialTypeDTO>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<MaterialTypeDTO>>> Get()
+            => Ok(await _materialTypeService.GetAllAsync());
 
-        // GET api/<MaterialTypesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        /// <summary>
+        /// Get one Material Type data
+        /// </summary>
+        /// <param name="id">Identification number of Material Type</param>
+        /// <returns>Data about Material Type</returns>
+        [HttpGet]
+        [Route("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<MaterialTypeDTO>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<MaterialTypeDTO>> Get(int id)
+            => Ok(await _materialTypeService.GetByIdAsync(id));
 
-        // POST api/<MaterialTypesController>
+        /// <summary>
+        /// Add new Material Type
+        /// </summary>
+        /// <param name="value">JSON-new Material Type data</param>
+        /// <returns>Id of new Material Type with 201.Created; 400.BadRequest; 409.Conflict</returns>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(MaterialTypeDTO))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status409Conflict)]
+        public async Task<ActionResult> Post(MaterialTypePostDTO value)
         {
+            var id = await _materialTypeService.CreateNewAsync(value);
+            return Created($"{HttpContext.Request.Path}/{id}", $"new Material Type with id= [{id}] added");
         }
 
-        // PUT api/<MaterialTypesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        /// <summary>
+        /// Change direct data
+        /// </summary>
+        /// <param name="id">Identification number of Material Type to change data</param>
+        /// <param name="value">Value to change. Write only row(key/value) of what do you what to change</param>
+        /// <returns>New Material Type data: 200.Ok; 400.BadRequest; 409.Conflict</returns>
+        [HttpPut]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(MaterialTypeDTO))]
+        [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Put(MaterialTypePutDTO value)
+            => Ok(await _materialTypeService.UpdatePut(value));
 
-        // DELETE api/<MaterialTypesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        /// <summary>
+        /// Remove Material Type
+        /// </summary>
+        /// <param name="id">Identification number of Material Type to remove</param>
+        /// <returns>Id of removed Material Type: 200.Ok; 404.NotFound</returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Delete(int id)
+            => Ok(await _materialTypeService.Remove(id));
     }
 }

@@ -16,6 +16,8 @@ builder.Services.AddDbContext<EduContext>(options => options.UseSqlServer(connec
 // Scooped
 builder.Services.AddScoped<IAuthorService, AuthorServicecs>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IMaterialTypeService, MaterialTypeService>();
+builder.Services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
