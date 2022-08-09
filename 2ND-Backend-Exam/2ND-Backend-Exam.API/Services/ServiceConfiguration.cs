@@ -10,12 +10,14 @@
             service.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
             service.AddScoped<IEduMaterialRepository, EduMaterialRepository>();
             service.AddScoped<IReviewRepository, ReviewRepository>();
+            service.AddScoped<IUserRepository, UserRepository>();
 
             //Services
             service.AddScoped<IAuthorService, AuthorServicecs>();
             service.AddScoped<IMaterialTypeService, MaterialTypeService>();
             service.AddScoped<IEduMaterialService, EduMaterialService>();
             service.AddScoped<IReviewService, ReviewService>();
+            service.AddScoped<IUserService, UserService>();
         }
     }
 }

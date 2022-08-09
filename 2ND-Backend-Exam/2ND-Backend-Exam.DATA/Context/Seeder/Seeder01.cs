@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-
-namespace _2ND_Backend_Exam.DATA.Context.Seeder
+﻿namespace _2ND_Backend_Exam.DATA.Context.Seeder
 {
     public static class Seeder01
     {
@@ -155,10 +152,13 @@ namespace _2ND_Backend_Exam.DATA.Context.Seeder
             builder.Entity<Review>()
                     .HasData(reviews);
 
+            var adminPassword = Convert.ToHexString(SHA256.Create().ComputeHash(Encoding.Default.GetBytes("admin")));
+            var userPassword = Convert.ToHexString(SHA256.Create().ComputeHash(Encoding.Default.GetBytes("user")));
+
             var usersList = new List<User>()
             {
-                new User() { Id = 1, Username = "admin", Password = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918", Role="Admin" },
-                new User() { Id = 2, Username = "user", Password = "04F8996DA763B7A969B1028EE3007569EAF3A635486DDAB211D512C85B9DF8FB", Role="User" }
+                new User() { Id = 1, Username = "admin", Password = adminPassword, Role="Admin" },
+                new User() { Id = 2, Username = "user", Password = userPassword, Role="User" }
             };
             builder.Entity<User>()
                 .HasData(usersList);

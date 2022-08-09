@@ -16,6 +16,9 @@
         public void Delete(T entity)
             => _entity.Remove(entity);
 
+        public async Task<bool> ExistByIdAsync(int id)
+            => await _entity.AnyAsync(x => x.Id == id);
+
         public async Task<IEnumerable<T>> GetAllAsync()
             => await _entity.ToListAsync();
 

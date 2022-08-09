@@ -2,6 +2,7 @@
 {
     public interface IRepository<T> where T : BaseEntity
     {
+        Task<bool> ExistByIdAsync(int id);
         Task CreateAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
