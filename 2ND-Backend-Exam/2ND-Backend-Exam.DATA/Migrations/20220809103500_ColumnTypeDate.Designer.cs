@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _2ND_Backend_Exam.DATA.Context;
 
@@ -11,9 +12,10 @@ using _2ND_Backend_Exam.DATA.Context;
 namespace _2ND_Backend_Exam.DATA.Migrations
 {
     [DbContext(typeof(EduContext))]
-    partial class EduContextModelSnapshot : ModelSnapshot
+    [Migration("20220809103500_ColumnTypeDate")]
+    partial class ColumnTypeDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,7 +116,7 @@ namespace _2ND_Backend_Exam.DATA.Migrations
                             Description = "Step By Step How To Step",
                             Location = "yt.com/aaaaaa",
                             MaterialTypeId = 1,
-                            PublicationDate = new DateTime(2022, 8, 9, 12, 38, 28, 468, DateTimeKind.Local).AddTicks(9469),
+                            PublicationDate = new DateTime(2022, 8, 9, 12, 35, 0, 411, DateTimeKind.Local).AddTicks(9645),
                             Title = "Step By Step How To Step"
                         },
                         new

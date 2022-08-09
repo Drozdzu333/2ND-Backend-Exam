@@ -1,10 +1,12 @@
-﻿namespace _2ND_Backend_Exam.DATA.Entities
+﻿
+namespace _2ND_Backend_Exam.DATA.Entities
 {
     public class EduMaterial : BaseEntity
     {
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Location { get; set; } = null!;
+        [Column(TypeName = "Date")]
         public DateTime PublicationDate { get; set; }
 
         public Author Author { get; set; } = null!;

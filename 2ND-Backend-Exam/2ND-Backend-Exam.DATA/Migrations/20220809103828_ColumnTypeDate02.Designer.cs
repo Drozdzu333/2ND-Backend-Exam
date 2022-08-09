@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _2ND_Backend_Exam.DATA.Context;
 
@@ -11,9 +12,10 @@ using _2ND_Backend_Exam.DATA.Context;
 namespace _2ND_Backend_Exam.DATA.Migrations
 {
     [DbContext(typeof(EduContext))]
-    partial class EduContextModelSnapshot : ModelSnapshot
+    [Migration("20220809103828_ColumnTypeDate02")]
+    partial class ColumnTypeDate02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

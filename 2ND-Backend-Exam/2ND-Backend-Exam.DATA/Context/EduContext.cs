@@ -11,6 +11,9 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<EduMaterial>()
+                .Property(a => a.PublicationDate)
+                .HasColumnType("date");
             builder.RunSeeder();
         }
 
