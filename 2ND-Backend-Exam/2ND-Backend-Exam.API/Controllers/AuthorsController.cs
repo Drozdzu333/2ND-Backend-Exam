@@ -26,9 +26,10 @@
         /// </summary>
         /// <returns>List of Authors</returns>
         [HttpGet]
+        [Route("/bestOf/")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "")]
         public async Task<ActionResult<IEnumerable<AuthorDTO>>> GetBests()
             => Ok(await _authorService.GetAllBestsAsync());
 
@@ -54,7 +55,6 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        [Authorize(Roles ="")]
         public async Task<ActionResult> Post(AuthorPostDTO value)
         {
             var id = await _authorService.CreateNewAsync(value);
@@ -72,7 +72,6 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles ="")]
         public async Task<ActionResult> Patch(int id, AuthorPatchDTO value)
             => Ok(await _authorService.UpdatePatch(id, value));
         /// <summary>
@@ -85,7 +84,6 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles ="")]
         public async Task<ActionResult> Put(AuthorPutDTO value)
             => Ok(await _authorService.UpdatePut(value));
 

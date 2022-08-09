@@ -43,7 +43,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(MaterialTypeDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
-        [Authorize(Roles ="")]
+        [AllowAnonymous]
         public async Task<ActionResult> Post(MaterialTypePostDTO value)
         {
             var id = await _materialTypeService.CreateNewAsync(value);
@@ -60,7 +60,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(MaterialTypeDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
-        [Authorize(Roles ="")]
+        [AllowAnonymous]
         public async Task<ActionResult> Put(MaterialTypePutDTO value)
             => Ok(await _materialTypeService.UpdatePut(value));
 
@@ -73,7 +73,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles ="")]
+        [AllowAnonymous]
         public async Task<ActionResult> Delete(int id)
             => Ok(await _materialTypeService.Remove(id));
     }
