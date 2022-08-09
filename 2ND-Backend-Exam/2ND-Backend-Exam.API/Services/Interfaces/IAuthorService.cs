@@ -8,5 +8,6 @@
         Task<AuthorDTO> UpdatePatch(int id, AuthorPatchDTO value);
         Task<bool> Remove(int id);
         Task<AuthorDTO> UpdatePut(AuthorPutDTO value);
+        Task<IEnumerable<AuthorDTO>> GetAllBestsAsync();
     }
 }

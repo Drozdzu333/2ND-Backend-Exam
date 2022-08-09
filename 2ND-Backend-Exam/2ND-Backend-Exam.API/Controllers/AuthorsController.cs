@@ -17,9 +17,20 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles ="Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<IEnumerable<AuthorDTO>>> Get()
             => Ok(await _authorService.GetAllAsync());
+
+        /// <summary>
+        /// Get Authors with avg rev above 5 data list
+        /// </summary>
+        /// <returns>List of Authors</returns>
+        [HttpGet]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
+        [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<AuthorDTO>>> GetBests()
+            => Ok(await _authorService.GetAllBestsAsync());
 
         /// <summary>
         /// Get one Author data
@@ -87,7 +98,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles ="")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
             => Ok(await _authorService.Remove(id));
     }

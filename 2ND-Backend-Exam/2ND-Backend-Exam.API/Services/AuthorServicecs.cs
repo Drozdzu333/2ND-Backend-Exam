@@ -97,5 +97,13 @@
             }
         author.Materials = newList;
         }
+
+        public async Task<IEnumerable<AuthorDTO>> GetAllBestsAsync()
+        {
+            var authors = await _repository.GetAllBestsAsync();
+            if (authors == null)
+                throw new EmptyResourceListException("");
+            return _mapper.Map<IEnumerable<AuthorDTO>>(authors);
+        }
     }
 }

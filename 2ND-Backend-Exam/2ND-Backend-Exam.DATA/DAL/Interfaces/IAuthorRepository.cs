@@ -4,5 +4,6 @@
     {
         Task<Author> GetByIdAsync(int id);
         Task<EduMaterial> GetMaterialByIdAsync(int eduMaterialId);
+        Task<IEnumerable<Author>> GetAllBestsAsync();
     }
 }
