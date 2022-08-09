@@ -7,11 +7,10 @@
         public string? Location { get; set; }
         public DateTime? PublicationDate { get; set; }
 
-        public Author? Author { get; set; }
         public int? AuthorId { get; set; }
 
         public int? MaterialTypeId { get; set; }
 
-        public IEnumerable<int>? ReviewsId { get; set; }
+        public IEnumerable<int>? ReviewsIds { get; set; }
     }
 }

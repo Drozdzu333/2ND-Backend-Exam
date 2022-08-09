@@ -4,5 +4,6 @@
     {
         public Task<EduMaterial> GetByIdAsync(int id);
         Task<bool> ValidExistsSubIdsAsync(EduMaterial material);
+        Task<Review> GetReviewByIdAsync(int id);
     }
 }

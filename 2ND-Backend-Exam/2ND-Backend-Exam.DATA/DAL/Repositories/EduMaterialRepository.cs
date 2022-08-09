@@ -24,5 +24,8 @@
             var matTyp = await _context.MaterialTypes.AnyAsync(type=>type.Id == material.MaterialTypeId);
             return matTyp && author;
         }
+
+        public async Task<Review> GetReviewByIdAsync(int id)
+            => await _context.Reviews.SingleOrDefaultAsync(rev=>rev.Id == id);
     }
 }
