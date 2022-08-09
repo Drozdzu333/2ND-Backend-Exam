@@ -18,6 +18,8 @@ builder.Services.AddScoped<IAuthorService, AuthorServicecs>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IMaterialTypeService, MaterialTypeService>();
 builder.Services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
+builder.Services.AddScoped<IEduMaterialService, EduMaterialService>();
+builder.Services.AddScoped<IEduMaterialRepository, EduMaterialRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 

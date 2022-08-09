@@ -1,0 +1,21 @@
+﻿namespace _2ND_Backend_Exam.DATA.DAL.Repositories
+{
+    public class EduMaterialRepository : Repository<EduMaterial>, IEduMaterialRepository
+    {
+        public EduMaterialRepository(EduContext context) : base(context) { }
+
+        public async Task<EduMaterial> GetByIdAsync(int id)
+            => await _entity
+            .Include(edu=>edu.Author)
+            .Include(edu=>edu.MaterialType)
+            .Include(edu=>edu.Reviews)
+            .SingleOrDefaultAsync(edu=>edu.AuthorId == id);
+
+        public new async Task<IEnumerable<EduMaterial>> GetAllAsync()
+            => await _entity
+            .Include(edu => edu.Author)
+            .Include(edu => edu.MaterialType)
+            .Include(edu => edu.Reviews)
+            .ToListAsync();
+    }
+}
