@@ -1,24 +1,9 @@
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text.Json.Serialization;
+using _2ND_Backend_Exam.API.appConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-});
+var authentication = new AuthenticationConfig(builder.Services, builder.Configuration);
+authentication.AddAuthenticationSome();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -33,57 +18,19 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Middlewares
-builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<LoggingMiddleware>();
 
 // Data Base
-var connectionString = builder.Configuration.GetConnectionString("EduDataBase");
-builder.Services.AddDbContext<EduContext>(options => options.UseSqlServer(connectionString));
+var connectionStringEduDB = builder.Configuration["ConnectionStrings:EduDataBase"];
+builder.Services.AddDbContext<EduContext>(options => options.UseSqlServer(connectionStringEduDB));
 
-// Scooped
-builder.Services.AddTransient<IUserRepository, UserRepository>();
+// Services and Repositories
+builder.Services.AddCustomServicesAndRepositories();
 
+// Swagger with auth
+builder.Services.AddSwaggerCustomConfig();
 
-builder.Services.AddScoped<IAuthorService, AuthorServicecs>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-builder.Services.AddScoped<IMaterialTypeService, MaterialTypeService>();
-builder.Services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
-builder.Services.AddScoped<IEduMaterialService, EduMaterialService>();
-builder.Services.AddScoped<IEduMaterialRepository, EduMaterialRepository>();
-builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-
-builder.Services.AddSwaggerGen(c =>
-    {
-        c.EnableAnnotations();
-
-        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-        {
-            Name = "Authorization",
-            Type = SecuritySchemeType.ApiKey,
-            Scheme = "Bearer",
-            BearerFormat = "JWT",
-            In = ParameterLocation.Header,
-            Description = "Bearer Authorization",
-        });
-
-        c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    new string [] {}
-                }
-            });
-
-    });
+// Middleware services
+builder.Services.AddCustomMiddlewareConfiguration();
 
 var app = builder.Build();
 
