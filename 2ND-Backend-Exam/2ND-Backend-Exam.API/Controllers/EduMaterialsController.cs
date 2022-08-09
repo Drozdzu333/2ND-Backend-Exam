@@ -17,6 +17,7 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<EduMaterialDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<IEnumerable<EduMaterialDTO>>> Get()
             => Ok(await _materialService.GetAllAsync());
 
@@ -29,6 +30,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<EduMaterialDTO>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<EduMaterialDTO>> Get(int id)
             => Ok(await _materialService.GetByIdAsync(id));
 
@@ -41,6 +43,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(EduMaterialDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Post(EduMaterialPostDTO value)
         {
             var id = await _materialService.CreateNewAsync(value);
@@ -58,6 +61,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(EduMaterialDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Patch(int id, EduMaterialPatchDTO value)
             => Ok(await _materialService.UpdatePatch(id, value));
         /// <summary>
@@ -70,6 +74,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(EduMaterialDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Put(EduMaterialPutDTO value)
             => Ok(await _materialService.UpdatePut(value));
 
@@ -82,6 +87,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(bool))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Delete(int id)
             => Ok(await _materialService.Remove(id));
     }

@@ -17,6 +17,7 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<MaterialTypeDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<IEnumerable<MaterialTypeDTO>>> Get()
             => Ok(await _materialTypeService.GetAllAsync());
 
@@ -29,6 +30,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<MaterialTypeDTO>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<MaterialTypeDTO>> Get(int id)
             => Ok(await _materialTypeService.GetByIdAsync(id));
 
@@ -41,6 +43,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(MaterialTypeDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Post(MaterialTypePostDTO value)
         {
             var id = await _materialTypeService.CreateNewAsync(value);
@@ -57,6 +60,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(MaterialTypeDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Put(MaterialTypePutDTO value)
             => Ok(await _materialTypeService.UpdatePut(value));
 
@@ -69,6 +73,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Delete(int id)
             => Ok(await _materialTypeService.Remove(id));
     }

@@ -17,7 +17,7 @@
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<IEnumerable<AuthorDTO>>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<IEnumerable<AuthorDTO>>> Get()
             => Ok(await _authorService.GetAllAsync());
 
@@ -30,6 +30,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ActionResult<AuthorDTO>))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="Admin,User")]
         public async Task<ActionResult<AuthorDTO>> Get(int id)
             => Ok(await _authorService.GetByIdAsync(id));
 
@@ -42,6 +43,7 @@
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Post(AuthorPostDTO value)
         {
             var id = await _authorService.CreateNewAsync(value);
@@ -59,6 +61,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Patch(int id, AuthorPatchDTO value)
             => Ok(await _authorService.UpdatePatch(id, value));
         /// <summary>
@@ -71,6 +74,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorDTO))]
         [SwaggerResponse(StatusCodes.Status409Conflict)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Put(AuthorPutDTO value)
             => Ok(await _authorService.UpdatePut(value));
 
@@ -83,6 +87,7 @@
         [Route("{id}")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(int))]
         [SwaggerResponse(StatusCodes.Status404NotFound)]
+        [Authorize(Roles ="")]
         public async Task<ActionResult> Delete(int id)
             => Ok(await _authorService.Remove(id));
     }
